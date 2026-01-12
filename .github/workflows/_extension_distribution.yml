@@ -62,7 +62,7 @@ on:
       vcpkg_commit:
         required: false
         type: string
-        default: "74e6536215718009aae747d86d84b78376bf9e09"
+        default: "84bab45d415d22042bd0b9081aea57f362da3f35"
       # Override the vcpkg binary sources config. By default, we use the public (read-only) cache from duckdb.
       vcpkg_binary_sources:
         required: false
