@@ -454,7 +454,12 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: ./ccache_dir
-          key: ccache-extension-distribution-${{ matrix.duckdb_arch }}-${{ inputs.duckdb_version }}-${{ steps.ccache_timestamp.outputs.timestamp }}
+          # 1. We add hashFiles to catch changes in dependencies
+          # 2. We add a prefix to distinguish from the 'poisoned' old cache
+          key: ccache-extension-distribution-ext-v2-${{ matrix.duckdb_arch }}-${{ inputs.duckdb_version }}-${{ hashFiles('**/vcpkg.json') }}-${{ steps.ccache_timestamp.outputs.timestamp }}
+          # Optional: allow falling back to a recent cache if an exact match isn't found
+          restore-keys: |
+            ccache-extension-distribution-v2-${{ matrix.duckdb_arch }}-${{ inputs.duckdb_version }}-
 
       - name: Test extension (inside docker)
         if: ${{ matrix.duckdb_arch != 'linux_arm64' && inputs.skip_tests == false }}
