@@ -455,7 +455,7 @@ jobs:
         with:
           path: ./ccache_dir
           # Add hashFiles to catch changes in dependencies
-          key: ccache-extension-distribution-v2-${{ matrix.duckdb_arch }}-${{ inputs.duckdb_version }}-${{ hashFiles('**/vcpkg.json') }}-${{ steps.ccache_timestamp.outputs.timestamp }}
+          key: ccache-extension-distribution-v2-${{ matrix.duckdb_arch }}-${{ inputs.duckdb_version }}-${{ hashFiles('.github/workflows/_extension_distribution.yml') }}-${{ steps.ccache_timestamp.outputs.timestamp }}
 
       - name: Test extension (inside docker)
         if: ${{ matrix.duckdb_arch != 'linux_arm64' && inputs.skip_tests == false }}
